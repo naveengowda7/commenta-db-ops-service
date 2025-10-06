@@ -38,6 +38,7 @@ router.get("/:videoId", async (req, res) => {
 
 router.get("/user/:userId", async (req, res) => {
   try {
+    console.log(req.params.userId)
     const videos = await prisma.video.findMany({
       where: { userId: req.params.userId },
       orderBy: { createdAt: 'desc' },
