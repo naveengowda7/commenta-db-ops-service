@@ -30,27 +30,27 @@ app.use("/comments", commentRoutes);
 app.use("/analysis", analysisRoutes);
 app.use("/mcp", mcpRoutes);
 
-const PORT = process.env.PORT || 5000;
-const server = app.listen(PORT, () => {
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => {
   console.log(`✅ DB Ops Service running on port ${PORT}`);
   console.log(`✅ Workers started: user, analysis`);
 });
 
-const gracefulShutdown = async () => {
-  console.log("⚡ SIGTERM/SIGINT received, closing workers and server...");
-  try {
-    if (userWorker?.close) await userWorker.close();
-    if (analysisWorker?.close) await analysisWorker.close();
-    console.log("✅ Workers closed");
-  } catch (err) {
-    console.error("❌ Error closing workers:", err);
-  } finally {
-    server.close(() => {
-      console.log("✅ Server closed");
-      process.exit(0);
-    });
-  }
-};
+// const gracefulShutdown = async () => {
+//   console.log("⚡ SIGTERM/SIGINT received, closing workers and server...");
+//   try {
+//     if (userWorker?.close) await userWorker.close();
+//     if (analysisWorker?.close) await analysisWorker.close();
+//     console.log("✅ Workers closed");
+//   } catch (err) {
+//     console.error("❌ Error closing workers:", err);
+//   } finally {
+//     server.close(() => {
+//       console.log("✅ Server closed");
+//       process.exit(0);
+//     });
+//   }
+// };
 
-process.on("SIGTERM", gracefulShutdown);
-process.on("SIGINT", gracefulShutdown);
+// process.on("SIGTERM", gracefulShutdown);
+// process.on("SIGINT", gracefulShutdown);
